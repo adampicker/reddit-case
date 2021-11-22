@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    width: 120px;
+    justify-content: space-between;
+  }
+}

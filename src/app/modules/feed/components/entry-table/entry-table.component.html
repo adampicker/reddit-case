@@ -1,0 +1,18 @@
+<div class="table-container">
+  <app-table-header
+    (subredditNameChange)="onSubredditNameChange($event)"
+  ></app-table-header>
+  <div class="table-content">
+    <app-reddit-entry
+      *ngFor="let entry of data"
+      [redditEntry]="entry"
+    ></app-reddit-entry>
+  </div>
+  <app-table-footer
+    [pageSizes]="pageSizes"
+    [selectedPageSize]="selectedPageSize"
+    (nextPage)="onNextPage()"
+    (prevPage)="onPrevPage()"
+    (pageSize)="onPageSize($event)"
+  ></app-table-footer>
+</div>

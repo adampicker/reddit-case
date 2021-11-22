@@ -1,0 +1,11 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  width: 50vw;
+  .table-content {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+}

@@ -1,0 +1,14 @@
+<div class="footer">
+  <div class="footer__buttons">
+    <button type="button" (click)="getPrevPage()">Prev</button
+    ><button type="button" (click)="getNextPage()">Next</button>
+  </div>
+  <div class="footer__pager">
+    <label>Choose a page size:</label>
+    <select [(ngModel)]="selectedPageSize" (change)="onPageSizeChange()">
+      <option *ngFor="let size of pageSizes" [ngValue]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+</div>
