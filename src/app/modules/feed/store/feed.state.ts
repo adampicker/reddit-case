@@ -29,7 +29,6 @@ export class FeedStore {
     { payload }: FetchRedditFeed
   ) {
     const state = ctx.getState();
-    console.log(payload);
     this.redditApiService
       .getRedditFeed(
         payload.subredditName,
