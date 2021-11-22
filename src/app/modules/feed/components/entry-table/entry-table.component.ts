@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { RedditEntry } from '../../model/feed.model';
 import { FeedStore } from '../../store/feed.state';
 import { Select, Store } from '@ngxs/store';
 import { FetchMode, FetchRedditFeed } from '../../store/feed.action';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-entry-table',
   templateUrl: './entry-table.component.html',
   styleUrls: ['./entry-table.component.scss'],
 })
-export class EntryTableComponent implements OnInit {
+export class EntryTableComponent implements OnInit, OnDestroy {
   @Select(FeedStore.entries)
   entries$!: Observable<RedditEntry[]>;
   data: RedditEntry[] = [];
@@ -19,10 +20,12 @@ export class EntryTableComponent implements OnInit {
   pageSizes = [5, 10, 25];
   selectedPageSize = this.pageSizes[0];
 
+  destroy$ = new Subject();
+
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.entries$.subscribe((data) => {
+    this.entries$.pipe(takeUntil(this.destroy$)).subscribe((data) => {
       this.data = data ?? [];
     });
   }
@@ -52,5 +55,10 @@ export class EntryTableComponent implements OnInit {
         ...(dir != void 0 ? { dir: dir } : null),
       })
     );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
   }
 }
